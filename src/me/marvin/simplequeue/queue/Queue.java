@@ -1,11 +1,11 @@
 package me.marvin.simplequeue.queue;
 
-import lombok.Getter;
+import lombok.Data;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-@Getter
+@Data
 public class Queue<T> {
     private PriorityQueue<QueueEntry<T>> players;
     private boolean paused;
