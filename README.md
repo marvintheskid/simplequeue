@@ -18,7 +18,7 @@ public class DummyPriorityProvider implements QueuePriorityProvider<Dummy> {
 ```
 
 ### QueueHandler
-#### Constructor:
+#### Constructorok:
 ```java
 public SimpleQueueHandler(long delay, QueuePriorityProvider<T> priorityProvider, QueueConsumer<T> consumer)
 public SimpleQueueHandler(long delay, QueuePriorityProvider<T> priorityProvider, QueueConsumer<T> consumer, Predicate<T> removePredicate)
