@@ -24,7 +24,16 @@ public SimpleQueueHandler(long delay, QueuePriorityProvider<T> priorityProvider,
 public SimpleQueueHandler(long delay, QueuePriorityProvider<T> priorityProvider, QueueConsumer<T> consumer, Predicate<T> removePredicate)
 ```
 
-#### Kód
+#### Methodok:
+```java
+public Queue<T> createQueue(String id)
+public Queue<T> createQueue(String id, int limit)
+public Tuple<QueueEntry<T>, QueueResponse> queueEntry(String queue, T tEntry)
+public Tuple<QueueEntry<T>, QueueResponse> queueEntry(Queue<T> queue, T tEntry)
+public boolean unQueueEntry(T tEntry)
+```
+
+#### Használat:
 ```java
 public class Main {
     private SimpleQueueHandler<Dummy> queueHandler;
@@ -36,6 +45,11 @@ public class Main {
         (dummy) -> {
             //Predicate, hogy mikor removeolja az entryt
         });
+    }
+    
+    public void test() {
+        queueHandler.createQueue("queuename");
+        queueHandler.queueEntry("queuename", new Dummy());
     }
 }
 ```
