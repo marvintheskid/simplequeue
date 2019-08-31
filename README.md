@@ -39,9 +39,9 @@ public class Main {
     private SimpleQueueHandler<Dummy> queueHandler;
     
     public void createQueue() {
-        queueHandler = new SimpleQueueHandler(250, new DummyPriorityProvider<>(), ((dummy, queue) -> {
+        queueHandler = new SimpleQueueHandler(250, new DummyPriorityProvider<>(), (dummy, queue, handler) -> {
             //Consumer, hogy mire használja fel az entryt
-        }),
+        },
         (dummy) -> {
             //Predicate, hogy mikor removeolja az entryt
         });
