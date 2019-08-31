@@ -1,2 +1,2 @@
 # simplequeue
-Egy egyszerű, independent queue rendszer
+Egy egyszerű, független queue rendszer
