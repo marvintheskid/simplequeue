@@ -85,7 +85,7 @@ public class SimpleQueueHandler<T> {
         }
 
         QueueEntry<T> entry = entries.get(tEntry);
-        Queue<T> queue = queues.get(entry.getId());
+        Queue<T> queue = queues.get(entry.getQueueId());
 
         if (queue == null) {
             throw new NullPointerException("queue cannot be null");

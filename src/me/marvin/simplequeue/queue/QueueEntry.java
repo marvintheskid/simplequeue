@@ -6,15 +6,15 @@ import me.marvin.simplequeue.provider.QueuePriorityProvider;
 @Getter
 public class QueueEntry<T> {
     private T entry;
-    private String id;
+    private String queueId;
     private int priority;
 
-    public QueueEntry(String id, T entry, QueuePriorityProvider<T> priorityProvider) {
-        this(id, entry, priorityProvider.getEntryPriority(entry));
+    public QueueEntry(String queueId, T entry, QueuePriorityProvider<T> priorityProvider) {
+        this(queueId, entry, priorityProvider.getEntryPriority(entry));
     }
 
-    public QueueEntry(String id, T entry, int priority) {
-        this.id = id;
+    public QueueEntry(String queueId, T entry, int priority) {
+        this.queueId = queueId;
         this.entry = entry;
         this.priority = priority;
     }

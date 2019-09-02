@@ -1,7 +1,10 @@
 package me.marvin.simplequeue.util;
 
+import lombok.Getter;
+
 import java.util.Map;
 
+@Getter
 public class Tuple<A, B> implements Map.Entry<A, B> {
     private final A key;
     private final B value;
@@ -9,16 +12,6 @@ public class Tuple<A, B> implements Map.Entry<A, B> {
     public Tuple(A key, B value) {
         this.key = key;
         this.value = value;
-    }
-
-    @Override
-    public A getKey() {
-        return key;
-    }
-
-    @Override
-    public B getValue() {
-        return value;
     }
 
     @Override
