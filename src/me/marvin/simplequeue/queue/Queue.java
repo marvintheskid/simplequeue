@@ -7,7 +7,7 @@ import java.util.PriorityQueue;
 
 @Data
 public class Queue<T> {
-    private PriorityQueue<QueueEntry<T>> players;
+    private PriorityQueue<QueueEntry<T>> entries;
     private boolean paused;
     private String id;
     private int limit;
@@ -17,7 +17,7 @@ public class Queue<T> {
     }
 
     public Queue(String id, int limit) {
-        this.players = new PriorityQueue<>(limit, Comparator.comparingInt(QueueEntry::getPriority));
+        this.entries = new PriorityQueue<>(limit, Comparator.comparingInt(QueueEntry::getPriority));
         this.paused = false;
         this.id = id;
         this.limit = limit;
