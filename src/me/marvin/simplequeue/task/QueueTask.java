@@ -31,7 +31,7 @@ public class QueueTask<T> extends Thread {
                     if (entry != null) {
                         if (handler.getRemovePredicate() != null) {
                             if (entry.getEntry() != null) {
-                                handler.getConsumer().accept(entry.getEntry(), queue);
+                                handler.getConsumer().accept(entry.getEntry(), queue, handler);
                             }
 
                             if (handler.getRemovePredicate().test(entry.getEntry())) {
@@ -40,7 +40,7 @@ public class QueueTask<T> extends Thread {
                             }
                         } else {
                             if (entry.getEntry() != null) {
-                                handler.getConsumer().accept(entry.getEntry(), queue);
+                                handler.getConsumer().accept(entry.getEntry(), queue, handler);
                             }
 
                             queue.getPlayers().remove(entry);
