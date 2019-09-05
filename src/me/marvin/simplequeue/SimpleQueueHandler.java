@@ -9,11 +9,13 @@ import me.marvin.simplequeue.queue.QueueResponse;
 import me.marvin.simplequeue.task.QueueTask;
 import me.marvin.simplequeue.util.Tuple;
 
+import java.util.Comparator;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 
 @Getter
 public class SimpleQueueHandler<T> {
+    private Comparator<QueueEntry<T>> comparator;
     private ConcurrentHashMap<String, Queue<T>> queues;
     private ConcurrentHashMap<T, QueueEntry<T>> entries;
     private QueuePriorityProvider<T> priorityProvider;
@@ -42,6 +44,7 @@ public class SimpleQueueHandler<T> {
         this.priorityProvider = priorityProvider;
         this.removePredicate = removePredicate;
         this.consumer = consumer;
+        this.comparator = ((o1, o2) -> o2.getPriority() - o1.getPriority());
         this.task = new QueueTask<>(this);
         this.delay = delay;
         this.task.start();
@@ -66,7 +69,7 @@ public class SimpleQueueHandler<T> {
 
         QueueEntry<T> entry = new QueueEntry<>(queue.getId(), tEntry, priorityProvider);
 
-        if (queue.getPlayers().size() + 1 > queue.getLimit()) {
+        if (queue.getEntries().size() + 1 > queue.getLimit()) {
             return new Tuple<>(null, QueueResponse.QUEUE_FULL);
         }
 
@@ -74,8 +77,8 @@ public class SimpleQueueHandler<T> {
             return new Tuple<>(null, QueueResponse.ALREADY_QUEUED);
         }
 
-        entries.put(tEntry, entry);
-        queue.getPlayers().offer(entry);
+        queue.getEntries().offer(entry);
+        queue.getEntries().sort(comparator);
         return new Tuple<>(entry, QueueResponse.QUEUE_SUCCESS);
     }
 
@@ -91,11 +94,11 @@ public class SimpleQueueHandler<T> {
             throw new NullPointerException("queue cannot be null");
         }
 
-        if (!queue.getPlayers().contains(entry)) {
+        if (!queue.getEntries().contains(entry)) {
             return false;
         }
 
-        queue.getPlayers().remove(entry);
+        queue.getEntries().remove(entry);
         entries.remove(tEntry);
         return false;
     }

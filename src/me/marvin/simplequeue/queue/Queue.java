@@ -2,12 +2,12 @@ package me.marvin.simplequeue.queue;
 
 import lombok.Data;
 
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.LinkedList;
 
 @Data
 public class Queue<T> {
-    private PriorityQueue<QueueEntry<T>> entries;
+    //TODO Jobb megoldást erre
+    private LinkedList<QueueEntry<T>> entries;
     private boolean paused;
     private String id;
     private int limit;
@@ -17,7 +17,7 @@ public class Queue<T> {
     }
 
     public Queue(String id, int limit) {
-        this.entries = new PriorityQueue<>(limit, Comparator.comparingInt(QueueEntry::getPriority));
+        this.entries = new LinkedList<>();
         this.paused = false;
         this.id = id;
         this.limit = limit;

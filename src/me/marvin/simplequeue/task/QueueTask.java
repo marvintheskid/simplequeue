@@ -27,7 +27,7 @@ public class QueueTask<T> extends Thread {
             Iterator<Queue<T>> iterator = handler.getQueues().values().iterator();
             iterator.forEachRemaining(queue -> {
                 if (!queue.isPaused()) {
-                    QueueEntry<T> entry = queue.getPlayers().peek();
+                    QueueEntry<T> entry = queue.getEntries().peek();
                     if (entry != null) {
                         if (handler.getRemovePredicate() != null) {
                             if (entry.getEntry() != null) {
@@ -35,7 +35,7 @@ public class QueueTask<T> extends Thread {
                             }
 
                             if (handler.getRemovePredicate().test(entry.getEntry())) {
-                                queue.getPlayers().remove(entry);
+                                queue.getEntries().remove(entry);
                                 handler.getEntries().remove(entry.getEntry());
                             }
                         } else {
@@ -43,7 +43,7 @@ public class QueueTask<T> extends Thread {
                                 handler.getConsumer().accept(entry.getEntry(), queue, handler);
                             }
 
-                            queue.getPlayers().remove(entry);
+                            queue.getEntries().remove(entry);
                             handler.getEntries().remove(entry.getEntry());
                         }
                     }
