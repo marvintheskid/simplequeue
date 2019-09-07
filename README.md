@@ -1,7 +1,7 @@
 # simplequeue
 Egy egyszerű, független queue rendszer
 ## TODO
-* Egy saját Collection implementáció a LinkedList helyett (ha lesz időm, meg ötletem)
+* Nincs jelenleg.
 
 ## Használat
 ### PriorityProvider
