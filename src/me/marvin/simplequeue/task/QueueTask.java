@@ -27,7 +27,14 @@ public class QueueTask<T> extends Thread {
             Iterator<Queue<T>> iterator = handler.getQueues().values().iterator();
             iterator.forEachRemaining(queue -> {
                 if (!queue.isPaused()) {
-                    QueueEntry<T> entry = queue.getEntries().peek();
+                    QueueEntry<T> entry;
+
+                    try {
+                        entry = queue.getEntries().get(0);
+                    } catch (IndexOutOfBoundsException ex) {
+                        entry = null;
+                    }
+
                     if (entry != null) {
                         if (handler.getRemovePredicate() != null) {
                             if (entry.getEntry() != null) {
