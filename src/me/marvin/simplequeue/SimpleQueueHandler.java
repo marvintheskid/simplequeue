@@ -77,6 +77,7 @@ public class SimpleQueueHandler<T> {
             return new Tuple<>(null, QueueResponse.ALREADY_QUEUED);
         }
 
+        entries.put(tEntry, entry);
         queue.getEntries().add(entry);
         queue.getEntries().sort(comparator);
         return new Tuple<>(entry, QueueResponse.QUEUE_SUCCESS);
